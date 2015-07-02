@@ -1,0 +1,246 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Verdana, sans-serif;
+    font-size: small;
+    background: #404040 url(pictures/bg.jpg) top center no-repeat fixed;
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #c00000;
+    text-decoration: underline;
+}
+
+div {
+    display: block;
+}
+
+h1 {
+    margin-bottom: 0.5em;
+}
+
+#page {
+    width: 1000px;
+    position: relative;
+    margin: 6px auto;
+    border: 1px solid #000000;
+    border-radius: 1px;
+}
+
+#main, #header, #footer, .articleOrder, .article {
+    clear: both;
+    position: relative;
+    overflow: hidden;
+}
+
+#header {
+    height: 60px;
+    background-color: #A0A0A0;
+}
+
+#banner {
+    margin-top: 3px;
+    margin-left: 3px;
+    width: auto;
+    float: left;
+    font-size: 30px;
+    font-weight: bold;
+    z-index: 5;
+}
+
+#userBar {
+    width: 50%;
+    float: right;
+    font-size: small;
+    text-align: right;
+    margin-top: 3px;
+    margin-right: 3px;
+    z-index: 4;
+}
+
+#main {
+    background-color: white;
+    min-height: 600px;
+    z-index: 1000;
+}
+
+#navlist {
+    vertical-align: top;
+    width: auto;
+    margin-right: 78%;
+    padding: 3px;
+    z-index: 2;
+    overflow: hidden;
+}
+
+#adminList {
+    vertical-align: top;
+    width: auto;
+    margin-right: 60%;
+    padding: 3px;
+    z-index: 2;
+    overflow: hidden;
+}
+
+#content {
+    width: 78%;
+    padding-right: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    float: right;
+    z-index: 3;
+}
+
+#footer {
+    height: 30px;
+    background-color: #525252;
+    font-size: small;
+    color: white;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.article {
+    z-index: 1000;
+    border: 1px solid #000000;
+    border-radius: 1px;
+    margin: 6px 0 6px 0;
+}
+
+.articleName {
+    background-color: #A0A0A0;
+    margin-bottom: 6px;
+}
+
+.articleImage {
+    float: left;
+    border: 1px solid #9B9B9B;
+    margin: 0 0 5px 0;
+    cursor: pointer;
+}
+
+.leftOfArticle {
+    float: left;
+    width: 55%;
+    margin-left: 3px;
+}
+
+.leftOfArticleFooter {
+    float: left;
+    width: 75%;
+}
+
+.rightOfArticle {
+    float: right;
+    width: 25%;
+    margin-bottom: 6px;
+}
+
+.articleDescription {
+    font-size: small;
+}
+
+.articleOrder {
+    background-color: #525252;
+    color: white;
+}
+
+input {
+    border: 1px solid black;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+input[type="number"] {
+    width: 50px;
+}
+
+input[type="submit"] {
+    background-color: white;
+    cursor: pointer;
+}
+
+fieldset {
+    border: none;
+}
+
+#adminList ul a, #navlist ul a {
+    width: 100%;
+    background-color: #525252;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+#adminList ul, #navlist ul {
+    list-style-type: none;
+    width: 100%;
+    margin: 0px;
+    padding: 0;
+}
+
+#adminList ul li, #navlist ul li {
+    line-height: 1.5em;
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#adminList ul li a, #navlist ul li a {
+    display: block;
+    width: 90%;
+    padding-left: 10%;
+    font-size: small;
+    font-weight: bold;
+    color: white;
+    background-color: #525252;
+}
+
+#adminList ul li a.selected, #navlist ul li a.selected {
+    background-color: #A0A0A0;
+    color: black;
+}
+
+#adminList ul li a:hover, #navlist ul li a:hover {
+    color: #c00000;
+    background-color: #c0c0c0;
+    text-decoration: none;
+}
+
+#content table {
+    width: 100%;
+    margin: 6px 0 6px 0;
+}
+
+#content table th {
+    text-align: left;
+    background-color: #525252;
+    color: white;
+}
+
+#largeImgPanel {
+    text-align: center;
+    visibility: hidden;
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+}
+
+#largeImg {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    z-index: 10001;
+}

@@ -1,0 +1,147 @@
+\newcommand{\VORNAME}{Nicolai}
+\newcommand{\NACHNAME}{Jablonski}
+\newcommand{\KLASSE}{FA35}
+\documentclass[a4paper,oneside,12pt]{scrartcl}
+
+\usepackage{geometry}
+\geometry{a4paper,left=20mm,right=20mm, top=18mm, bottom=18mm} 
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{ngerman,url}
+\setcounter{secnumdepth}{-1}
+\sloppy
+
+\usepackage{scrpage2}
+\setlength{\headheight}{1.5\headheight}
+\pagestyle{scrplain}
+\clearscrplain
+\lohead[\footnotesize\KLASSE, \VORNAME{} \NACHNAME]{}
+\cohead[\Large{\textsc{AS Projekt}}\\\scriptsize Dokumentation Versand]{}
+\rohead[\footnotesize\today]{}
+
+\begin{document}
+
+\section{Vorbedinungen}
+Es soll ein Webshop zum Bestellen von Produkten erstellt werden. Dieser
+soll eine Administrationsschnittstelle beinhalten, so dass Benutzer, Mehrwertsteuersätze,
+Artikelgruppen und Artikel anlegen und verwalten kann.
+Der Benutzer soll sich über eine Login-Maske anmelden können.
+Es wurden Beispielhafte Datenbank-Strukturen vorgegeben, die implementiert werden können.
+
+\section{Planung}
+
+\subsection{Benutzergruppen}
+Die Benutzer des Webshops werden in 2 Benutzergruppen eingeteilt: Administratoren und Kunden.
+Die Benutzergruppe wird als boolscher Wert an den Datensatz des Benutzers angehängt.
+
+\subsection{Artikel und Artikelgruppen}
+Artikel werden in Artikelgruppen aufgeteilt um die Navigation für den Benutzer zu erleichtern.
+Jeder Artikel hat eine Bezeichnung, eine Beschreibung, einen Nettopreis sowie einen 
+zugeordneten Mehrwertsteuersatz und eine Artikelgruppe. Der Bruttopreis wird automatisch 
+berechnet und dem Benutzer angezeigt.
+
+\subsection{Administration}
+In der Administration können Benutzer, Mehrwertsteuersätze, Artikelgruppen, Zahlungsarten und Artikel anlegt
+und verwaltet werden. Dazu wird es notwendig sein einen von den Kunden abgetrennten
+Bereich zu erstellen. Es ist vorgesehen, dass die Administratoren sich auch um die
+Bestellungen kümmern und die Bestellungen aller Benutzer sehen können.
+Die Administrationsschnittstelle kann über die Hauptschnittstelle aufgerufen werden.
+
+\subsection{Registrierung und Anmeldung}
+Benutzer können entweder über einen Benutzernamen oder über seine Email-Adresse eindeutig
+identifiziert werden. Email-Adressen sind allerdings immer eindeutig, da es nicht gängig ist,
+dass mehrere Benutzer sich eine Email-Adresse teilen. Zur Sicherheit sollte das Password des
+Benutzers nicht im Klartext gespeichert werden, sondern verschlüsselt beziehungsweise als
+Hash. Die Anmeldung erfolgt für beide Benutzergruppen über die selbe Login-Maske. 
+
+\subsection{Warenkorb}
+Der Warenkorb ist die virtuelle Version eines Einkaufenswagens, in dem Artikel eingefügt und
+wieder entfernt werden können. Wenn Artikel dem Warenkorb hinzugefügt werden,
+so soll auch angezeigt werden, was sich in dem Warenkorb befindet.
+Die Anzeige der Warenkorbes soll tabellarisch die Artikel, zu zahlende Mehrwertsteuer (aufgeschlüsselt nach Mehrwertsteuersatz) 
+und den Endpreis anzeigen.
+Bei dem Artikeln wird die Bezeichnung, die Menge, zugeordneter Mehrwertsteuersatz, der Einzelpreis (brutto) und
+der Gesamtpreis anzeigt. Bei dem Login bleibt der Warenkorb erhalten, beim Logout wird dieser geleert.
+
+\subsection{Bestellvorgang}
+Der Bestellvorgang kann nur von angemeldeten Benutzern gestartet werden.
+Der Aufruf des Bestellvorgangs erfolgt über den Warenkorb.\\
+\\
+Der Bestellvorgang besteht aus 2 Teilen:
+\begin{itemize}
+  \item Eingabe der Lieferadresse und
+  \item Anzeige der Produkte im Warenkorb sowie der Auswahl der Zahlungsart und dem Bestellbutton
+ \end{itemize}
+Die Bestellvorgang ist erfolgreich, wenn die Lieferadresse eingegeben wurde und die
+Bestellung in der Datenbank gespeichert wurde.
+
+\subsection{Bestellungsansicht}
+Die Bestellungsansicht zeigt die chronologisch umgekehrt sortierten Bestellungen (jüngste oben) analog zum Bestellvorgang an.
+Dazu wird auch noch der Zeitpunkt und der Zahlungsstatus der Bestellungen anzeigt.\\
+\\
+Bei Kunden werden die eigenen Bestellungen anzeigt.\\
+Bei Administratoren werden die Bestellungen aller Benutzer angezeigt, aufgeschlüsselt nach Benutzern. Zusätzlich kann von den Administratoren der 
+Zahlungsstatus der Bestellung gesetzt werden.
+
+\section{Umsetzung}
+Das Projekt wurde in Skriptsprachen PHP und Javascript erstellt.
+Zur Anzeige des Projekts wird ein Webbrowser benötigt, dabei ist empfehlungsweise
+Google Chrome, Chromium oder Mozilla Firefox in der neusten Version zu nutzen.\\
+\\
+Der Datenbank-Zugriff erfolgt über die in PHP integrierte Programmbibliothek mysqli.
+Aus den Datenbank-Spalten werden in php Objekte erzeugt. Die Klassen zu den Objekten befinden sich unter classes/model.\\
+\\
+Zum Betrieb des Projekts auf dem Server wird folgende Programme in der angegeben Version oder neuer benötigt:
+\begin{itemize}
+ \item Apache 2.4
+ \item PHP 5.6
+ \item MariaDB-Server 10.0 oder MySQL-Server 5.6
+\end{itemize}
+Die von php erstellten, von Apache versendeten Seiten sind HTML5-Seiten.\\
+\\
+Das Layout des Projektes wurde größtenteils mit div-Tags und CSS-Eigenschaften erstellt und auf die Anzeige
+in Google Chrome und Chromium hin optimiert. Bei anderen Browsern kann es zu kleinen Unschönheiten im Layout kommen.\\
+\\
+Der Login und der Warenkorb werden in der \_SESSION-Variabel von PHP gespeichert. Dazu wird von php beim ersten Zugriff auf die Seite automatisch eine
+Session gestartet, die SESSIONID, die auf die Session in PHP referenziert, erstellt und mit einem Cookie im Browser des Nutzers gespeichert. 
+Die Session ist je nach Konfiguration von PHP bis der Browser geschlossen wird gültig.
+Bei dem Logout wird die Session geschlossen und eine neue Session automatisch gestartet.\\
+\\
+Es wird die Javascript-Library jquery in der Version 2.1.3 zum Hinzufügen von Produkten in den Warenkorb genutzt,
+da die Seite sonst bei dem Hinzufügen von Produkten neu geladen würde. So wird über jquery und AJAX dass
+Hinzufügen von Artikeln in den Warenkorb im Hintergrund ausgeführt und der Status des Warenkorbes ohne ein 
+Neuladen der Seite aktualisiert.\\
+\\
+Bei dem Artikel kann ein Bild des Artikels beim Erstellen oder Bearbeiten eines Artikels hochgeladen werden. 
+Das Bild wird als png-Datei gespeichert und ein Thumbnail wird dabei automatisch erstellt.
+Der Dateiname des Bildes besteht aus dem SHA256-Hash der Original-Bilddatei. Es werden nur png- und jpg-Dateien unterstützt.
+
+\subsection{Projektaufbau}
+Das Projekt ist in mehrere Teile aufgebaut:
+\begin{itemize}
+ \item admin: enthält die Administration. Jede Administrationsaufgabe hat ihren Unterordner.
+ z.B. die Artikelverwaltung im Unterordner \textquotedblleft article\textquotedblright.
+ Jeder Unterordner besitzt im Normalfall 4 php-Dateien: Eine zum Erstellen (add), zum Editieren (edit), zum Löschen (delete)
+ und zur Anzeige der Elemente (administration).
+ \item classes: enthält Datenbankzugriffs-, Konfigurations und Steuerklassen
+ \item classes/model: enthält Klassen welche die Daten aus der Datenbank halten
+ \item order: enthält php-Dateien zum Warenkorb und Bestellvorgang
+ \item user: enthält php-Dateien zum Login und Registrierung von Benutzern
+ \item pictures: enthält Bilder, das Hintergrundbild sowie alle Bilder, die der Nutzer zu den Artikeln hochgeladen hat.
+\end{itemize}
+
+\section{Umsetzungsalternativen}
+Es hat sich bei der Entwicklung gezeigt, dass auch die sogenannte WebAPI statt jquery über Javascript genutzt werden kann.
+Die WebAPI ist allerdings noch experimentell und wurde erst in Mozilla Firefox 35 und Google Chrome / Chromium 40 implementiert.
+Alle anderen Browser unterstützen die WebAPI nicht.
+
+\section{Erweiterbarkeit}
+Das Projekt kann um eine Benutzergruppen- und Rechteverwaltung erweitert werden, um differenzierter 
+Rechte verteilen zu können, z.B. das nur eine Gruppe \textquotedblleft Lagerarbeiter\textquotedblright\  die
+Bestellungen aller Kunden einsehen können oder nur Kunden Bestellungen aufgeben können.\\
+\\
+Die Registrierung der Benutzer kann außerdem so erweitert werden, dass der Benutzer sein Benutzerkonto
+erst über eine Aktivierungsmail bestätigen muss. Zur Sicherheit kann auch ein Captcha oder ähnliches Verfahren
+genutzt werden um die automatische Registrierung über Bots zu erschweren.
+\end{document}

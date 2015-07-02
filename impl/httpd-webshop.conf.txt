@@ -1,0 +1,13 @@
+# Beispiel-Alias für Apache über xampp
+# Der Alias zeigt nach C:/xampp/webshop
+
+# in httpd.conf von Apache z.B. folgendes hinzufügen
+# Include "conf/extra/httpd-webshop.conf"
+# wenn diese Datei in dem apache-Konfigurationsorder unter extra/ befindet
+
+Alias /webshop "C:/xampp/webshop"
+<Directory "C:/xampp/webshop">
+    DirectoryIndex index.php
+	AllowOverride All
+	Require all granted
+</Directory>
